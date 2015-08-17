@@ -1,7 +1,13 @@
 Cibbanktask::Application.routes.draw do
   devise_for :users
+devise_scope :user do 
+ 
 
-  root to: "home#index"
+ match '/requestpassword', :to => 'devise/sessions#requestpassword' 
+  get '/devise/sessions/requestpassword' => 'users_controller#requestpassword'  end
+
+
+root to: 'static_pages#home'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

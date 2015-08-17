@@ -1,0 +1,17 @@
+<h2>CIT Bank | Renew your password</h2>
+  <%= devise_error_messages! %>
+
+  <%= form_for(resource, :as => resource_name, :url => [resource_name, :password_expired], :html => { :method => :put }) do |f| %>
+
+
+  <p><%= f.label :current_password, "Current password" %><br />
+  <%= f.password_field :current_password %></p>
+
+  <p><%= f.label :password, "New password" %><br />
+  <%= f.password_field :password %></p>
+
+  <p><%= f.label :password_confirmation, "Confirm new password" %><br />
+  <%= f.password_field :password_confirmation %></p>
+
+  <p><%= f.submit "Change my password" %></p>
+<% end %>

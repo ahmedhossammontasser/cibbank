@@ -188,7 +188,7 @@ Devise.setup do |config|
   # Time interval you can reset your password with a reset password key.
   # Don't put a too small interval or your users won't have the time to
   # change their passwords.
-  config.reset_password_within = 6.hours
+  config.reset_password_within = 1.hours
 
   # When set to false, does not sign a user in automatically after their password is
   # reset. Defaults to true, so a user is signed in automatically after a reset.
@@ -264,7 +264,7 @@ Devise.setup do |config|
   # Configure security extension for devise
 
   # Should the password expire (e.g 3.months)
-  # config.expire_password_after = false
+   config.expire_password_after = 1.hours
 
   # Need 1 char of A-Z, a-z and 0-9
   # config.password_regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/
