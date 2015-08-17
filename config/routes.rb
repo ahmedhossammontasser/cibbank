@@ -1,10 +1,19 @@
 Cibbanktask::Application.routes.draw do
-  devise_for :users
-devise_scope :user do 
+   devise_for :users
+
+   get "users/requestpassword"
+   post "users/sendrequestpassword" #=> "users#sendrequestpassword"
+# devise_scope :user do 
  
 
- match '/requestpassword', :to => 'devise/sessions#requestpassword' 
-  get '/devise/sessions/requestpassword' => 'users_controller#requestpassword'  end
+#  match '/requestpassword', :to => 'devise/sessions#requestpassword' 
+#   get '/devise/sessions/requestpassword' => 'users_controller#requestpassword'  
+
+#  match '/sendrequestpassword', :to => 'devise/sessions#sendrequestpassword' 
+#   get '/devise/sessions/sendrequestpassword' => 'users_controller#sendrequestpassword'  
+
+
+# end
 
 
 root to: 'static_pages#home'
