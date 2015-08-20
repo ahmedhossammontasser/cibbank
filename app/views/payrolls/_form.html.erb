@@ -1,0 +1,26 @@
+<%= form_for(@payroll) do |f| %>
+  <% if @payroll.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payroll.errors.count, "error") %> prohibited this payroll from being saved:</h2>
+
+      <ul>
+      <% @payroll.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :payroll_amount %><br />
+    <%= f.number_field :payroll_amount ,:class => 'text_field', :step => 0.01 %>
+  </div>
+    <div class="field">
+   <%= f.label :payrolls_value_day %><br />
+ <%= f.date_select :payrolls_value_day ,:class => 'text_field', :step => 0.01 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

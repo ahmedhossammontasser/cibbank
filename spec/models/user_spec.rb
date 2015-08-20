@@ -16,6 +16,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  password_changed_at    :datetime
+#  user_name              :string(255)
+#  company_id             :integer          default(0)
 #
 
 require 'spec_helper'

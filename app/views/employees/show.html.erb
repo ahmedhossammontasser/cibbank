@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Employee name:</b>
+  <%= @employee.employee_name %>
+</p>
+
+<p>
+  <b>Employee branch code:</b>
+  <%= @employee.employee_branch_code %>
+</p>
+
+<p>
+  <b>Employee account no:</b>
+  <%= @employee.employee_account_no %>
+</p>
+
+
+<p>
+  <b>Employee currency code:</b>
+  <%= @employee.employee_currency_code %>
+</p>
+
+<p>
+  <b>Employee debit credit:</b>
+  <%= @employee.employee_debit_credit %>
+</p>
+
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

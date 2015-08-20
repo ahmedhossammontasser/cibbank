@@ -11,7 +11,56 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150816112125) do
+ActiveRecord::Schema.define(:version => 20150819170746) do
+
+  create_table "companies", :force => true do |t|
+    t.string   "company_name"
+    t.string   "company_code"
+    t.string   "Company_account_no"
+    t.string   "Company_account_no_usd", :default => "0"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+  end
+
+  create_table "employees", :force => true do |t|
+    t.string   "employee_name"
+    t.string   "employee_branch_code"
+    t.string   "employee_account_no"
+    t.string   "employee_currency_code"
+    t.string   "employee_debit_credit",  :default => "D"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.integer  "company_id"
+  end
+
+  create_table "payroll_employee", :force => true do |t|
+    t.integer  "payroll_id"
+    t.integer  "employee_id"
+    t.string   "amount"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "payroll_employees", :force => true do |t|
+    t.float    "amount",      :default => 0.0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "employee_id"
+    t.integer  "payroll_id"
+  end
+
+  add_index "payroll_employees", ["employee_id"], :name => "index_payroll_employees_on_employee_id"
+  add_index "payroll_employees", ["payroll_id"], :name => "index_payroll_employees_on_payroll_id"
+
+  create_table "payrolls", :force => true do |t|
+    t.float    "payroll_amount"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.datetime "payrolls_creation_date"
+    t.datetime "payrolls_value_day"
+    t.integer  "payrolls_no_employees"
+    t.integer  "company_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -27,6 +76,8 @@ ActiveRecord::Schema.define(:version => 20150816112125) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.datetime "password_changed_at"
+    t.string   "user_name"
+    t.integer  "company_id",             :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

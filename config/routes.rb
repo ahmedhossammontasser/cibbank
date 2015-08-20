@@ -1,4 +1,16 @@
 Cibbanktask::Application.routes.draw do
+  resources :payroll_employees
+
+
+  resources :payrolls
+
+
+  resources :employees
+
+
+  resources :companies
+
+
    devise_for :users
 
    get "users/requestpassword"

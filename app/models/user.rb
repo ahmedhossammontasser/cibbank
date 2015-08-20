@@ -16,6 +16,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  password_changed_at    :datetime
+#  user_name              :string(255)
+#  company_id             :integer          default(0)
 #
 
 class User < ActiveRecord::Base
@@ -27,4 +29,6 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
+   belongs_to :company
+
 end

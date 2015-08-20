@@ -1,0 +1,23 @@
+<h1>Listing payrolls</h1>
+
+<table>
+  <tr>
+    <th>Payroll amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @payrolls.each do |payroll| %>
+  <tr>
+    <td><%= payroll.payroll_amount %></td>
+    <td><%= link_to 'Show', payroll %></td>
+    <td><%= link_to 'Edit', edit_payroll_path(payroll) %></td>
+    <td><%= link_to 'Destroy', payroll, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Payroll', new_payroll_path %>

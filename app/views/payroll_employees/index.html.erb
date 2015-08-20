@@ -1,0 +1,23 @@
+<h1>Listing payroll_employees</h1>
+
+<table>
+  <tr>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @payroll_employees.each do |payroll_employee| %>
+  <tr>
+    <td><%= payroll_employee.amount %></td>
+    <td><%= link_to 'Show', payroll_employee %></td>
+    <td><%= link_to 'Edit', edit_payroll_employee_path(payroll_employee) %></td>
+    <td><%= link_to 'Destroy', payroll_employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Payroll employee', new_payroll_employee_path %>
