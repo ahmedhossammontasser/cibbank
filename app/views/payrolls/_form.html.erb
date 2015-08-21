@@ -1,4 +1,5 @@
-<%= form_for(@payroll) do |f| %>
+<%@employes = Employee.find(:all, :conditions => {:company_id => current_user.company_id},:order => "employee_name asc")%>
+ <%= form_for(@payroll) do |f| %>
   <% if @payroll.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@payroll.errors.count, "error") %> prohibited this payroll from being saved:</h2>
@@ -11,16 +12,34 @@
     </div>
   <% end %>
 
+<p><b>Company Name :</b><%= @companyob.company_name %>  </p>
   <div class="field">
     <%= f.label :payroll_amount %><br />
     <%= f.number_field :payroll_amount ,:class => 'text_field', :step => 0.01 %>
   </div>
+  <div class="field">
+    <%= f.label :company_id %><br />
+    <%= f.text_field :company_id %>
+  </div>
+
+
     <div class="field">
    <%= f.label :payrolls_value_day %><br />
- <%= f.date_select :payrolls_value_day ,:class => 'text_field', :step => 0.01 %>
+ <%= f.date_select :payrolls_value_day%>
   </div>
+
+<h3>Employees info :</h3>
+  <div class="field">
+
+  </div>
+  <%= f.fields_for :payroll_employees, @payroll_employee do |builder| %>
+<%= builder.select :employee_id, options_for_select(@employes.map{ |c| [c.employee_name, c.id ] } )
+%>
+
+      <br />
 
   <div class="actions">
     <%= f.submit %>
   </div>
+<% end %>
 <% end %>

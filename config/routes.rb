@@ -1,32 +1,12 @@
 Cibbanktask::Application.routes.draw do
   resources :payroll_employees
-
-
   resources :payrolls
-
-
   resources :employees
-
-
   resources :companies
-
-
    devise_for :users
 
    get "users/requestpassword"
    post "users/sendrequestpassword" #=> "users#sendrequestpassword"
-# devise_scope :user do 
- 
-
-#  match '/requestpassword', :to => 'devise/sessions#requestpassword' 
-#   get '/devise/sessions/requestpassword' => 'users_controller#requestpassword'  
-
-#  match '/sendrequestpassword', :to => 'devise/sessions#sendrequestpassword' 
-#   get '/devise/sessions/sendrequestpassword' => 'users_controller#sendrequestpassword'  
-
-
-# end
-
 
 root to: 'static_pages#home'
   # The priority is based upon order of creation:

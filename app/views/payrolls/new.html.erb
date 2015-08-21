@@ -1,5 +1,17 @@
-<h1>New payroll</h1>
+<% @companyob =Company.find_by_id(current_user.company_id) %>
+<% @payrolls = Payroll.find(:all, :conditions => {:company_id => current_user.company_id}) %>
+<% ary = Payroll.find_all_by_company_id(current_user.company_id).map{ |d| d.payrolls_creation_date.strftime('%m %y') }.uniq %>
 
+ <%   if ary.include?(DateTime.now.to_date.strftime('%m %y'))%>
+
+ You have created payroll for this month 
+ link to 
+<br>
+<br>
+<br>
+
+<% else %>
+<h1>New payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
 <%= render 'form' %>
-
+<% end %>
 <%= link_to 'Back', payrolls_path %>

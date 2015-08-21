@@ -1,14 +1,9 @@
 <% if user_signed_in? %>
-	<div class="center hero-unit">
-	<h1>Welcome to the CIB Banl Payroll App</h1>
-	<h2>
-	This is the home page for the
-CIB bank payroll application.
-	</h2>
-</div>
+<%= render 'users/user_info' %>
+
 <% else %>
 	<div class="center hero-unit">
-	<h1>Welcome to the CIB Banl Payroll App</h1>
+	<h1>Welcome to the CIB Bank Payroll App</h1>
 	<h2>
 	This is the home page for the
 CIB bank payroll application.

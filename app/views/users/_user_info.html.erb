@@ -1,0 +1,41 @@
+<h1><%= current_user.user_name %></h1>
+
+<% if current_user.company_id == 0 %>
+<p>link to new company or link to company</p>
+
+<% else %>
+
+<li><%= link_to "Create payroll ", new_payroll_path %></li>
+<li><%= link_to "Add new employees", new_payroll_path %></li>
+
+
+<br>
+<br>
+
+<p>Welcome  <%= current_user.user_name %></p>
+<% @companyob =Company.find_by_id(current_user.company_id) %>
+<% @payrolls = Payroll.find(:all, :conditions => {:company_id => current_user.company_id}) %>
+<p><b>Company Name :</b><%= @companyob.company_name %>  </p>
+<p> <b>Total Payrolls :</b><%= @payrolls.count %></p>
+
+<br>
+<br>
+<h3><b>Payroll info:</b></h3>
+
+<br>
+
+<% @payrolls.each do |payrollob| %>
+
+<p> <b>Month:  </b><%= payrollob.payrolls_creation_date.strftime('%m-%y') %></p>
+<p> <b>Value date:  </b><%= payrollob.payrolls_value_day.strftime('%m-%y') %></p>
+<p> <b>Total employees:  </b><%= payrollob.payrolls_no_employees %></p>
+<p> <b>Total amount: </b><%= payrollob.payroll_amount %></p>
+<br>
+<br>
+
+ <% end %>
+
+
+
+
+ <% end %>

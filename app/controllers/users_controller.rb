@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+ before_filter: :companyname 
   def requestpassword
     
   end
@@ -20,5 +20,3 @@ class UsersController < ApplicationController
       	render :requestpassword
       end	
   end
-
-end

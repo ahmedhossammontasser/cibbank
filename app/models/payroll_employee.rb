@@ -12,7 +12,7 @@
 
 class PayrollEmployee < ActiveRecord::Base
  
-  attr_accessible :amount 
+  attr_accessible :amount ,:payroll_id,:employee_id
     belongs_to :payroll
     belongs_to :employee
 

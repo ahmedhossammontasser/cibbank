@@ -13,18 +13,17 @@
 #
 
 class Payroll < ActiveRecord::Base
-  attr_accessible :payroll_amount ,:employee , :payrolls_value_day
+  attr_accessible :payroll_amount , :payrolls_creation_date,:payrolls_value_day,:company_id , :payrolls_no_employees
   belongs_to :company
   has_many :payroll_employees
   has_many :employees, through: :payroll_employees
 
   validates :company_id, presence: true
-
-  validates :payroll_amount, presence: true ,:format => { :with => /^\d+??(?:\.\d{0,2})?$/  }
-  validate :unique_month_year_payroll
+  validates :payroll_amount, presence: true ,:format => { :with => /^\d+??(?:\.\d{0,2})?$/  } 
+# validate :unique_month_year_payroll
 
   def unique_month_year_payroll
-  	ary = PayrollEmployee.all.map { |d| d.created_at.strftime('%m %y') }.uniq 
+  	ary = Payroll.find_all_by_company_id(company_id).map{ |d| d.payrolls_creation_date.strftime('%m %y') }.uniq 
   	if ary.include?(DateTime.now.to_date.strftime('%m %y'))
   		errors.add(:employee_id,"payroll is create for this month")
   	end

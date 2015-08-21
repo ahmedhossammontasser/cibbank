@@ -14,7 +14,7 @@
 #
 
 class Employee < ActiveRecord::Base
-  attr_accessible  :employee_account_no, :employee_branch_code, :employee_currency_code, :employee_debit_credit, :employee_name ,:payroll
+  attr_accessible  :employee_account_no, :employee_branch_code, :employee_currency_code, :employee_debit_credit, :employee_name ,:company_id
   belongs_to :company
   has_many :payroll_employees
   has_many :payrolls, through: :payroll_employees
