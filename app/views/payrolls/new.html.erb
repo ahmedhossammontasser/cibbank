@@ -1,8 +1,5 @@
-<% @companyob =Company.find_by_id(current_user.company_id) %>
-<% @payrolls = Payroll.find(:all, :conditions => {:company_id => current_user.company_id}) %>
-<% ary = Payroll.find_all_by_company_id(current_user.company_id).map{ |d| d.payrolls_creation_date.strftime('%m %y') }.uniq %>
 
- <%   if ary.include?(DateTime.now.to_date.strftime('%m %y'))%>
+ <%   if @ary.include?(DateTime.now.to_date.strftime('%m %y'))%>
 
  You have created payroll for this month 
  link to 
