@@ -13,7 +13,7 @@
 #
 
 class Payroll < ActiveRecord::Base
-  attr_accessible :payroll_amount , :payrolls_creation_date,:payrolls_value_day,:company_id , :payrolls_no_employees
+  attr_accessible :payroll_amount , :payrolls_creation_date,:payrolls_value_day,:company_id , :payrolls_no_employees,:payroll_employees_attributes
   belongs_to :company
   has_many :payroll_employees
   has_many :employees, through: :payroll_employees
@@ -21,6 +21,9 @@ class Payroll < ActiveRecord::Base
   validates :company_id, presence: true
   validates :payroll_amount, presence: true ,:format => { :with => /^\d+??(?:\.\d{0,2})?$/  } 
 # validate :unique_month_year_payroll
+
+accepts_nested_attributes_for :payroll_employees, :reject_if => :all_blank,
+           :allow_destroy => true
 
   def unique_month_year_payroll
   	ary = Payroll.find_all_by_company_id(company_id).map{ |d| d.payrolls_creation_date.strftime('%m %y') }.uniq 
