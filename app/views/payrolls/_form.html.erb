@@ -20,8 +20,25 @@
 
 <h3>Employees info :</h3>
 
+<%if @payroll.id == nil %>
 
-<% @payroll %>
+<%    @employes.each do|employe|%>
+ <%   @payrollemploye << PayrollEmployee.new(employee_id: employe.id)%>
+<%    end  %>
+
+<%else%>
+<%   @employes.each do|employe|%>
+<%      @payrollemploye =  PayrollEmployee.find_all_by_payroll_id(params[:id])%>
+<%    end  %>
+
+<% end %>
+
+<br>
+<%= @payrollemploye %>
+<br>
+<%= @employes %>
+<br>
+
  <% @payrollemploye.each_with_index do|employe , i |  %>
   <%= f.fields_for "amount#{i}",employe do |builder| %>
   <%=builder.label  Employee.find(employe.employee_id).employee_name   %> 
@@ -41,6 +58,9 @@ Debit credit :
 
 <% end %>
 <% end %>
-<%= params.inspect %> 
+<p>
+  <%= params.inspect %>
+
+</p> 
 <%= f.submit 'Save', data: { confirm: 'Your confirm message' } %>
 <% end %>

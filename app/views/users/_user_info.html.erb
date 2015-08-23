@@ -1,11 +1,12 @@
 <h1><%= current_user.user_name %></h1>
 
 <% if current_user.company_id == 0 %>
-<p>link to new company or link to company</p>
+<p>Welcome  <%= current_user.user_name %></p>
+<li><%= link_to "Create company", new_company_path %></li>
 
 <% else %>
 
-<li><%= link_to "Create payroll ", new_payroll_path %></li>
+<li><%= link_to "Create payroll", new_payroll_path %></li>
 <li><%= link_to "Add new employees", new_payroll_path %></li>
 
 
