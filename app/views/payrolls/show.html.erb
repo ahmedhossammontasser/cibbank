@@ -2,7 +2,8 @@
 
 
 <h1>Payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
-<h2>use for next payroll | edit for next payroll</h2>
+<h2><%= link_to 'Use for next month', new_payroll_path(id: @payroll.id , editmonth: 'new') %> 
+</h2>
 
 <p><b>Company Name :</b><%= @companyob.company_name %>  </p>
 <p>
@@ -37,6 +38,7 @@
 <br>
 <% end %>
 
+<%  %>
 
-<%= link_to 'Edit', edit_payroll_path(@payroll) %> |
+<%= link_to 'Edit', edit_payroll_path(id: @payroll.id , editmonth: 'edit') %> |
 <%= link_to 'Back', payrolls_path %>

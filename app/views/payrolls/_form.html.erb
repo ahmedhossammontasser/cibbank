@@ -20,16 +20,26 @@
 
 <h3>Employees info :</h3>
 
+<% @month = params[:id]  %>
+
+
 <%if @payroll.id == nil %>
+    <% if @month %>
+     <%    @employes.each do|employe|%>
+     <%   @payrollemploye << PayrollEmployee.new(employee_id: employe.id , amount: PayrollEmployee.find_by_employee_id_and_payroll_id(5 , 18).amount )%>
+    <%    end  %>
+     
+    <% else %>
+     <%    @employes.each do|employe|%>
+     <%   @payrollemploye << PayrollEmployee.new(employee_id: employe.id)%>
 
-<%    @employes.each do|employe|%>
- <%   @payrollemploye << PayrollEmployee.new(employee_id: employe.id)%>
-<%    end  %>
-
+    <%    end  %>
+<% end %>
 <%else%>
-<%   @employes.each do|employe|%>
-<%      @payrollemploye =  PayrollEmployee.find_all_by_payroll_id(params[:id])%>
-<%    end  %>
+
+  <%   @employes.each do|employe|%>
+  <%      @payrollemploye =  PayrollEmployee.find_all_by_payroll_id(params[:id])%>
+  <%    end  %>
 
 <% end %>
 

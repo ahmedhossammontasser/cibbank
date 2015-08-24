@@ -1,14 +1,17 @@
 
  <%   if @ary.include?(DateTime.now.to_date.strftime('%m %y'))%>
 
+<%= Payroll.find(:all, :conditions => {:payrolls_creation_date.to_date.strftime('%m %y') => DateTime.now.to_date.strftime('%m %y')})
+%>
  You have created payroll for this month 
+
  link to 
 <br>
 <br>
 <br>
 
 <% else %>
-<h1>New payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
+<h1>Payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
 <%= render 'form' %>
 <% end %>
 <%= link_to 'Back', payrolls_path %>

@@ -1,5 +1,4 @@
-<h1>Editing payroll</h1>
-
+<h1>Edit Payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
 <%= render 'form' %>
 
 <%= link_to 'Show', @payroll %> |
