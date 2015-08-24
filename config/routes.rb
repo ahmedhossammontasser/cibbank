@@ -1,4 +1,9 @@
 Cibbanktask::Application.routes.draw do
+
+  get "users/edit"
+
+  put "users/update"
+
   resources :payroll_employees
   resources :payrolls
   resources :employees

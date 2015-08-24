@@ -1,19 +1,20 @@
-<h1><%= current_user.user_name %></h1>
+<p>Welcome  <%= current_user.user_name %></p>
+<p><%= current_user.email %></p>
+
+<li><%= link_to "Edit User info", users_edit_path %></li>
 
 <% if current_user.company_id == 0 %>
-<p>Welcome  <%= current_user.user_name %></p>
+
 <li><%= link_to "Create company", new_company_path %></li>
 
 <% else %>
 
 <li><%= link_to "Create payroll", new_payroll_path %></li>
-<li><%= link_to "Add new employees", new_payroll_path %></li>
+<li><%= link_to "Add new employees", new_employee_path %></li>
 
 
 <br>
 <br>
-
-<p>Welcome  <%= current_user.user_name %></p>
 <% @companyob =Company.find_by_id(current_user.company_id) %>
 <% @payrolls = Payroll.find(:all, :conditions => {:company_id => current_user.company_id}) %>
 <p><b>Company Name :</b><%= @companyob.company_name %>  </p>
@@ -27,7 +28,8 @@
 
 <% @payrolls.each do |payrollob| %>
 
-<p> <b>Month:  </b><%= payrollob.payrolls_creation_date.strftime('%m-%y') %></p>
+<p> <b>Month:  </b>
+	<%= link_to  payrollob.payrolls_creation_date.strftime('%m-%y') , payrollob %>  </p>
 <p> <b>Value date:  </b><%= payrollob.payrolls_value_day.strftime('%m-%y') %></p>
 <p> <b>Total employees:  </b><%= payrollob.payrolls_no_employees %></p>
 <p> <b>Total amount: </b><%= payrollob.payroll_amount %></p>

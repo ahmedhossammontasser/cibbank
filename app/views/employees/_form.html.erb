@@ -12,23 +12,30 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :employee_name %><br />
+    <%= f.label :employee_name %>
     <%= f.text_field :employee_name %>
   </div>
   <div class="field">
-    <%= f.label :employee_branch_code %><br />
+    <%= f.label :employee_branch_code %>
+    <em>(must be 3 Digits)</em><br />
     <%= f.number_field :employee_branch_code %>
   </div>
   <div class="field">
-    <%= f.label :employee_account_no %><br />
+    <%= f.label :employee_account_no %>
+    <em>(must be 10 Digits)</em><br />
     <%= f.text_field :employee_account_no %>
   </div>
   <div class="field">
-    <%= f.label :employee_currency_code %><br />
+
+    <%= f.label :employee_currency_code %>
+        <em>(must be EGP or USD)</em>
+<br />
     <%= f.text_field :employee_currency_code %>
   </div>
   <div class="field">
-    <%= f.label :employee_debit_credit %><br />
+    <%= f.label :employee_debit_credit %>
+    <em>(must be C or D)</em>
+<br />
     <%= f.text_field :employee_debit_credit %>
   </div>
   <div class="actions">

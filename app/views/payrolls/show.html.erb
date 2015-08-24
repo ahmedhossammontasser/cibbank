@@ -1,9 +1,41 @@
 <p id="notice"><%= notice %></p>
 
+
+<h1>Payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
+<h2>use for next payroll | edit for next payroll</h2>
+
+<p><b>Company Name :</b><%= @companyob.company_name %>  </p>
 <p>
-  <b>Payroll amount:</b>
-  <%= @payroll.payroll_amount %>
+
+  <b>Total amount:</b>
+  <%= @payroll.payroll_amount %>  
+<br>
+ <b>Total Number of employees:</b>
+  <%= @payroll.payrolls_no_employees %>  
+<br>
+   <b> payroll  value day: </b>
+ <%= @payroll.payrolls_value_day.to_date.strftime('%d/%m/%y')%>
+<br>
+   <b> payroll  cration day:</b>
+ <%= @payroll.payrolls_creation_date.to_date.strftime('%d/%m/%y')%>
+
 </p>
+
+<%     @payrollemploye =  PayrollEmployee.find_all_by_payroll_id(params[:id])%>
+
+ <% @payrollemploye.each_with_index do|employe , i |  %>
+<b>Name : </b>  <%=Employee.find(employe.employee_id).employee_name   %> 
+<b>Salary : </b>
+  <%=PayrollEmployee.find_by_employee_id_and_payroll_id(employe.employee_id , @payroll.id).amount%> 
+
+<b>Branch code : </b> <%= Employee.find(employe.employee_id).employee_branch_code %> 
+<b>Account code : </b> <%= Employee.find(employe.employee_id).employee_account_no %> 
+<b>Currency code : </b>
+<%= Employee.find(employe.employee_id).employee_currency_code %> 
+<b>Debit credit : </b>
+<%= Employee.find(employe.employee_id).employee_debit_credit %> 
+<br>
+<% end %>
 
 
 <%= link_to 'Edit', edit_payroll_path(@payroll) %> |

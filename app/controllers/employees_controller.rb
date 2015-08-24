@@ -22,6 +22,7 @@ class EmployeesController < ApplicationController
 
   def create
     @employee = Employee.new(params[:employee])
+    @employee.company_id = current_user.company_id
     @employee.save
     respond_with(@employee)
   end

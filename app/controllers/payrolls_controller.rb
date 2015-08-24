@@ -1,6 +1,6 @@
 class PayrollsController < ApplicationController
   before_filter :set_payroll, only: [:show, :edit, :update, :destroy]
-  before_filter :payrollparamtaers, only: [:new , :edit , :create ,:update]
+  before_filter :payrollparamtaers, only: [:new , :edit , :create ,:update , :show]
   respond_to :html
 
   def index
@@ -29,11 +29,11 @@ class PayrollsController < ApplicationController
     date = Date.new event["payrolls_value_day(1i)"].to_i, event["payrolls_value_day(2i)"].to_i, event["payrolls_value_day(3i)"].to_i
     @payroll = Payroll.new(payroll_amount:0 ,:payrolls_creation_date => DateTime.now ,:payrolls_value_day=>date.to_time ,:company_id=> current_user.company_id,payrolls_no_employees:@payrollemploye.count)
     @payroll.save
-    @totalamount = 0
+    @totalamount = 0.0
     @payrollemploye.each_with_index do|employe , i |
-      @amount = params[:payroll][:"amount#{0}"][:amount]
+      @amount = params[:payroll][:"amount#{i}"][:amount]
       employe.update_attributes(payroll_id:@payroll.id,:amount=>@amount)
-      @totalamount = @totalamount + @amount.to_i
+      @totalamount = @totalamount + @amount.to_f
       employe.save
     end
 
@@ -50,9 +50,9 @@ class PayrollsController < ApplicationController
      Payroll.find(params[:id]).update_attributes(:payrolls_value_day=>date.to_time ,:company_id=> current_user.company_id,payrolls_no_employees:@payrollemploye.count)
     @totalamount = 0
     @payrollemploye.each_with_index do|employe , i |
-      @amount = params[:payroll][:"amount#{0}"][:amount]
+      @amount = params[:payroll][:"amount#{i}"][:amount]
       employe.update_attributes(payroll_id:params[:id],:amount=>@amount)
-      @totalamount = @totalamount + @amount.to_i
+      @totalamount = @totalamount + @amount.to_f
       employe.save
     end
      Payroll.find(params[:id]).update_attributes(payroll_amount: @totalamount)

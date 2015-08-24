@@ -33,11 +33,6 @@
 
 <% end %>
 
-<br>
-<%= @payrollemploye %>
-<br>
-<%= @employes %>
-<br>
 
  <% @payrollemploye.each_with_index do|employe , i |  %>
   <%= f.fields_for "amount#{i}",employe do |builder| %>
@@ -45,7 +40,7 @@
 <p> 
 Branch code :
 <%= Employee.find(employe.employee_id).employee_branch_code %> 
-  Acoocunt code :
+  Account code :
 <%= Employee.find(employe.employee_id).employee_account_no %> 
   Currency code :
 <%= Employee.find(employe.employee_id).employee_currency_code %> 
@@ -55,12 +50,11 @@ Debit credit :
 
 </p>
   <%=builder.number_field :amount  ,:class => 'text_field', :step => 0.01%> 
+<br>
+<br>
+
 
 <% end %>
 <% end %>
-<p>
-  <%= params.inspect %>
-
-</p> 
 <%= f.submit 'Save', data: { confirm: 'Your confirm message' } %>
 <% end %>

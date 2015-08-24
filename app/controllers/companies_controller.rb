@@ -14,6 +14,7 @@ class CompaniesController < ApplicationController
 
   def new
     @company = Company.new
+
     respond_with(@company)
   end
 
@@ -23,6 +24,7 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(params[:company])
     @company.save
+    User.find(current_user.id).update_attributes(company_id: @company.id)
     respond_with(@company)
   end
 

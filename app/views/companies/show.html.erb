@@ -20,6 +20,20 @@
   <%= @company.Company_account_no_usd %>
 </p>
 
+<p>
+  <b>Users:</b>
+
+  <% @user = User.find_all_by_company_id(@company.id)%>
+  <% @user.each do|user | %>
+   <b>  user name :</b>
+      <%=user.user_name%>
+      <br>
+   <b>  user email :</b>
+      <%=user.email%>
+     
+      <% end %>
+
+</p>
 
 <%= link_to 'Edit', edit_company_path(@company) %> |
 <%= link_to 'Back', companies_path %>
