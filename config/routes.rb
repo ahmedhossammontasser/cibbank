@@ -13,6 +13,7 @@ Cibbanktask::Application.routes.draw do
    get "users/requestpassword"
    post "users/sendrequestpassword" #=> "users#sendrequestpassword"
 
+
 root to: 'static_pages#home'
   # The priority is based upon order of creation:
   # first created -> highest priority.

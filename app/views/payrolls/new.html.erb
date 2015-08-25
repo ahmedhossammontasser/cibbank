@@ -1,8 +1,6 @@
 
  <%   if @ary.include?(DateTime.now.to_date.strftime('%m %y'))%>
 
-<%= Payroll.find(:all, :conditions => {:payrolls_creation_date.to_date.strftime('%m %y') => DateTime.now.to_date.strftime('%m %y')})
-%>
  You have created payroll for this month 
 
  link to 

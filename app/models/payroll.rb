@@ -22,13 +22,13 @@ class Payroll < ActiveRecord::Base
 
   validates :company_id, presence: true
   validates :payroll_amount, presence: true ,:format => { :with => /^\d+??(?:\.\d{0,3})?$/  } 
- validate :unique_month_year_payroll
+# validate :unique_month_year_payroll
 
 
   def unique_month_year_payroll
   	ary = Payroll.find_all_by_company_id(company_id).map{ |d| d.payrolls_creation_date.strftime('%m %y') }.uniq 
   	if ary.include?(DateTime.now.to_date.strftime('%m %y'))
-  		errors.add(:employee_id,"payroll is create for this month")
+  		errors.add(:payroll.id ,"payroll is create for this month")
   	end
   end
 

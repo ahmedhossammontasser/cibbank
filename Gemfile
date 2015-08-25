@@ -12,6 +12,8 @@ gem 'devise_security_extension'
 gem 'turbolinks'
 gem 'cancan'
 gem 'cocoon'
+gem 'delayed_job_active_record'
+
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

@@ -1,10 +1,17 @@
 class UserRequestPassword < ActionMailer::Base
   default from: "from@example.com"
-  def send_request_password(user,passwordgenerate)
+  
+  def send_request_password(user)
     @user = user
-    @passwordgenerate = passwordgenerate
-    @bodymessage =    "Thanks for signing up  : " , @user.email ,"\n",'Your new Password  : ' , @passwordgenerate 
-    mail( :to => @user.email,:subject => 'Your New Password ',:body =>  @bodymessage )
+
+    mail( :to => @user.email,:subject => 'Your New Password ' )
   end
+
+  def send_payroll_info_value_day(user)
+  	@user = user 
+	  	mail( :to => @user.email ,:subject => 'Payroll  Value Date ' )
+	 
+  end
+
 end
     

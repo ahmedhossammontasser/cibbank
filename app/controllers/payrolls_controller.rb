@@ -27,7 +27,7 @@ class PayrollsController < ApplicationController
     end  
     event = params[:payroll]
     date = Date.new event["payrolls_value_day(1i)"].to_i, event["payrolls_value_day(2i)"].to_i, event["payrolls_value_day(3i)"].to_i
-    @payroll = Payroll.new(payroll_amount:0 ,:payrolls_creation_date => DateTime.now ,:payrolls_value_day=>date.to_time ,:company_id=> current_user.company_id,payrolls_no_employees:@payrollemploye.count)
+    @payroll = Payroll.new(payroll_amount:0.0 ,:payrolls_creation_date => DateTime.now ,:payrolls_value_day=>date.to_time ,:company_id=> current_user.company_id,payrolls_no_employees:@payrollemploye.count)
     @payroll.save
     @totalamount = 0.0
     @payrollemploye.each_with_index do|employe , i |
@@ -36,8 +36,12 @@ class PayrollsController < ApplicationController
       @totalamount = @totalamount + @amount.to_f
       employe.save
     end
-
     @payroll.update_attributes(payroll_amount: @totalamount)
+
+    @user = User.find_by_company_id(@payroll.company_id)    
+    time = (date - DateTime.now.to_date ) 
+    @time = ( time /3600).to_i.abs
+      UserRequestPassword.delay(run_at: date).send_payroll_info_value_day(@user)
     respond_with(@payroll)
   end
 
@@ -47,7 +51,7 @@ class PayrollsController < ApplicationController
     end  
     event = params[:payroll]
     date = Date.new event["payrolls_value_day(1i)"].to_i, event["payrolls_value_day(2i)"].to_i, event["payrolls_value_day(3i)"].to_i
-     Payroll.find(params[:id]).update_attributes(:payrolls_value_day=>date.to_time ,:company_id=> current_user.company_id,payrolls_no_employees:@payrollemploye.count)
+    Payroll.find(params[:id]).update_attributes(:payrolls_value_day=>date.to_time ,:company_id=> current_user.company_id,payrolls_no_employees:@payrollemploye.count)
     @totalamount = 0
     @payrollemploye.each_with_index do|employe , i |
       @amount = params[:payroll][:"amount#{i}"][:amount]
@@ -58,8 +62,12 @@ class PayrollsController < ApplicationController
      Payroll.find(params[:id]).update_attributes(payroll_amount: @totalamount)
 
     @payroll = Payroll.find(params[:id])
-
+    @user = User.find_by_company_id(@payroll.company_id)
+    time = (date - DateTime.now.to_date ) 
+    @time = ( time /3600).to_i.abs
+      UserRequestPassword.delay(run_at: @time.hours.from_now).send_payroll_info_value_day(@user)
     respond_with(@payroll)
+
   end
 
   def destroy
