@@ -16,7 +16,7 @@ class UserRequestPassword < ActionMailer::Base
 def send_payroll_info_to_bank(user,body )
     @user = user 
     @body = body
-      mail( :to => 'a.hossam.2010@gmail.com' ,:subject => 'Payroll info from '+ @user.email ,:body => @body)
+      mail( :to => @user.email ,:subject => 'Payroll info from '+ @user.email ,:body => @body)
    
   end
   

@@ -17,18 +17,7 @@ Cibbanktask::Application.configure do
   config.action_mailer.raise_delivery_errors = true # it will show error while delivering the mail. 
   config.action_mailer.default :charset => "utf-8"
 
-  config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "example.com",
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: "cibbankpayroll@gmail.com", # this should be a real gmail id
-    password: "cibbankpayroll1" # this should be real password of your gmail id
-  }
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
-config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
 
   # Print deprecation notices to the Rails logger
