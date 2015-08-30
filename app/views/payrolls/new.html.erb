@@ -1,15 +1,11 @@
+<% if @ary.include?(DateTime.now.to_date.strftime('%m %y')) %>
+<% @payrolls = Payroll.find_all_by_company_id(current_user.company_id,  order: "id DESC") %>
 
- <%   if @ary.include?(DateTime.now.to_date.strftime('%m %y'))%>
-
- You have created payroll for this month 
-
- link to 
-<br>
-<br>
-<br>
+ You have create payroll for this month 
+<p> <%= link_to  DateTime.now.to_date.strftime('%m %y') + " info" , @payrolls.first %>  </p>
 
 <% else %>
-<h1>Payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
-<%= render 'form' %>
+	<h1>Payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
+	<%= render 'form' %>
 <% end %>
 <%= link_to 'Back', payrolls_path %>

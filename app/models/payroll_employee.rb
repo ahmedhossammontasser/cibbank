@@ -18,7 +18,7 @@ class PayrollEmployee < ActiveRecord::Base
 
   validates :employee_id, presence: true
   validates :payroll_id, presence: true
-
+  validates_uniqueness_of :payroll_id, :scope => :employee_id
 
   validates :amount, presence: true ,:format => { :with => /^\d+??(?:\.\d{0,2})?$/  }
 

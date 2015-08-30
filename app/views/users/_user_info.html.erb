@@ -1,41 +1,76 @@
-<p>Welcome  <%= current_user.user_name %></p>
-<p><%= current_user.email %></p>
-
-<li><%= link_to "Edit User info", users_edit_path %></li>
-
+<% @ary = Payroll.find_all_by_company_id(current_user.company_id).map{ |d| d.payrolls_creation_date.strftime('%m %y') }.uniq %>
+     
+<div class="btn-group"> 
 <% if current_user.company_id == 0 %>
 
-<li><%= link_to "Create company", new_company_path %></li>
+  <%= link_to "Create company", new_company_path ,  :class => "btn btn-default"  %>
 
 <% else %>
 
-<li><%= link_to "Create payroll", new_payroll_path %></li>
-<li><%= link_to "Add new employees", new_employee_path %></li>
+
+<%= link_to "Add new employees", new_employee_path ,  :class => "btn btn-default"%>
+<%= link_to "List of employees", employees_path ,  :class => "btn btn-default"%>
+<% if !@ary.include?(DateTime.now.to_date.strftime('%m %y')) %>
+<%= link_to "Create payroll", new_payroll_path ,  :class => "btn btn-default" %>
+
+<% end %>
 
 
+</div>
 <br>
 <br>
+
+<p>Welcome  <%= current_user.email %></p>
 <% @companyob =Company.find_by_id(current_user.company_id) %>
-<% @payrolls = Payroll.find(:all, :conditions => {:company_id => current_user.company_id}) %>
+<% @payrolls = Payroll.find_all_by_company_id(current_user.company_id,  order: "id") %>
 <p><b>Company Name :</b><%= @companyob.company_name %>  </p>
 <p> <b>Total Payrolls :</b><%= @payrolls.count %></p>
 
 <br>
 <br>
-<h3><b>Payroll info:</b></h3>
+<ul class="nav nav-tabs nav-justified">
+  <li class="active"><a href="#">Payroll info</a></li> </ul>  
 
 <br>
 
 <% @payrolls.each do |payrollob| %>
+<div class="jumbotron payroll" >
 
-<p> <b>Month:  </b>
-	<%= link_to  payrollob.payrolls_creation_date.strftime('%m-%y') , payrollob %>  </p>
-<p> <b>Value date:  </b><%= payrollob.payrolls_value_day.strftime('%m-%y') %></p>
-<p> <b>Total employees:  </b><%= payrollob.payrolls_no_employees %></p>
-<p> <b>Total amount: </b><%= payrollob.payroll_amount %></p>
-<br>
-<br>
+<table border="0" style="width:100%">
+  <tr>
+    <td><b>Payroll For <%= payrollob.payrolls_creation_date.strftime('%B-%y')%></b></td>
 
+    <td>
+    	<table border="0" style="width:100%">
+			<tr>
+				<td><p> <b>Creation date:  </b> <%= payrollob.payrolls_creation_date.strftime('%d-%m-%y') %> </p></td>
+				<td><p> <b>Value date:  </b><%= payrollob.payrolls_value_day.strftime('%d-%m-%y') %></p></td>
+			</tr>
+			<tr>
+				<td><p> <b>Total employees:  </b><%= payrollob.payrolls_no_employees %></p></td>
+				<td><p> <b>Total amount: </b><%= payrollob.payroll_amount %></p></td>
+			</tr>
+		</table>
+	</td>
+    <td>
+    	<table border="0" style="width:100%">
+			<tr>
+				<td>
+					<%= link_to "Info", payrollob, :class => "btn btn-default", :style=> "padding:10px 20px"  %>
+				</td>
+				<td>
+				    <% if !@ary.include?(DateTime.now.to_date.strftime('%m %y')) %>
+					<%= link_to "Create payroll", new_payroll_path ,  :class => "btn btn-default" %>
+					<% end %>
+				</td>
+			</tr>
+		</table>
+	</td>
+  </tr>
+</table>  
+</div>
+<br >
+<br >
  <% end %>
 
 

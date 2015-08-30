@@ -13,7 +13,7 @@
 Account <b class="caret"></b>
 </a>
 <ul class="dropdown-menu">
-<li><%= current_user.email%></li>
+<li><%=  link_to "Edit User info", users_edit_path%></li>
 <li class="divider"></li>
 <li>
 <%= link_to "Sign out", destroy_user_session_path, method: "delete" %>

@@ -1,10 +1,10 @@
 class EmployeesController < ApplicationController
   before_filter :set_employee, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user! 
   respond_to :html
 
   def index
-    @employees = Employee.all
+    @employees = Employee.find_all_by_company_id(current_user.company_id,:order => "employee_name asc")
     respond_with(@employees)
   end
 

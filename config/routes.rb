@@ -13,6 +13,8 @@ Cibbanktask::Application.routes.draw do
    get "users/requestpassword"
    post "users/sendrequestpassword" #=> "users#sendrequestpassword"
 
+   post "payrolls/create"
+   post "payrolls/confirm"
 
 root to: 'static_pages#home'
   # The priority is based upon order of creation:

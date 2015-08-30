@@ -1,4 +1,4 @@
- <%= form_for(@payroll) do |f| %>
+ <%= form_for(@payroll , url:payrolls_create_path ) do |f| %>
   <% if @payroll.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@payroll.errors.count, "error") %> prohibited this payroll from being saved:</h2>
@@ -26,15 +26,15 @@
 <%if @payroll.id == nil %>
     <% if @month %>
      <%    @employes.each do|employe|%>
-     <%   @payrollemploye << PayrollEmployee.new(employee_id: employe.id , amount: PayrollEmployee.find_by_employee_id_and_payroll_id(5 , 18).amount )%>
+     <%   @payrollemploye << PayrollEmployee.new(employee_id: employe.id , amount: PayrollEmployee.find_by_employee_id_and_payroll_id(employe, @month).amount )%>
     <%    end  %>
      
     <% else %>
      <%    @employes.each do|employe|%>
      <%   @payrollemploye << PayrollEmployee.new(employee_id: employe.id)%>
-
     <%    end  %>
 <% end %>
+
 <%else%>
 
   <%   @employes.each do|employe|%>

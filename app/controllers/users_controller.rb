@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   respond_to :html
-
+before_filter :authenticate_user! , only: [:edit, :update ] 
+  
  def edit
   @user = current_user
     respond_with(@user)

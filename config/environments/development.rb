@@ -23,8 +23,8 @@ Cibbanktask::Application.configure do
     domain: "example.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "a.hossam.2010@gmail.com", # this should be a real gmail id
-    password: "hosamhosam" # this should be real password of your gmail id
+    user_name: "cibbankpayroll@gmail.com", # this should be a real gmail id
+    password: "cibbankpayroll1" # this should be real password of your gmail id
   }
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false

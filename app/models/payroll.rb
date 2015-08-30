@@ -22,7 +22,7 @@ class Payroll < ActiveRecord::Base
 
   validates :company_id, presence: true
   validates :payroll_amount, presence: true ,:format => { :with => /^\d+??(?:\.\d{0,3})?$/  } 
-# validate :unique_month_year_payroll
+ validate :unique_month_year_payroll
 
 
   def unique_month_year_payroll

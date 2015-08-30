@@ -2,8 +2,10 @@
 
 
 <h1>Payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
-<h2><%= link_to 'Use for next month', new_payroll_path(id: @payroll.id , editmonth: 'new') %> 
-</h2>
+
+<% if !@ary.include?(DateTime.now.to_date.strftime('%m %y')) %>
+<h2><%= link_to 'Use for next month', new_payroll_path(id: @payroll.id , editmonth: 'new',:class => "btn btn-default" ) %> </h2>
+<% end %>
 
 <p><b>Company Name :</b><%= @companyob.company_name %>  </p>
 <p>
@@ -20,9 +22,11 @@
    <b> payroll  cration day:</b>
  <%= @payroll.payrolls_creation_date.to_date.strftime('%d/%m/%y')%>
 
+<br >
 </p>
 
-<%     @payrollemploye =  PayrollEmployee.find_all_by_payroll_id(params[:id])%>
+
+<% @payrollemploye =  PayrollEmployee.find_all_by_payroll_id(params[:id])%>
 
  <% @payrollemploye.each_with_index do|employe , i |  %>
 <b>Name : </b>  <%=Employee.find(employe.employee_id).employee_name   %> 
@@ -36,9 +40,14 @@
 <b>Debit credit : </b>
 <%= Employee.find(employe.employee_id).employee_debit_credit %> 
 <br>
+
+<% @amount = PayrollEmployee.find_by_employee_id_and_payroll_id(employe.employee_id , @payroll.id).amount * 100%> 
+
+D<%= Employee.find(employe.employee_id).employee_branch_code %><%= Employee.find(employe.employee_id).employee_account_no %><%= Employee.find(employe.employee_id).employee_currency_code %><%= @amount.to_i.to_s.rjust(13,'0') %><%= Employee.find(employe.employee_id).employee_debit_credit %>R 
+
+<br>
 <% end %>
 
 <%  %>
 
-<%= link_to 'Edit', edit_payroll_path(id: @payroll.id , editmonth: 'edit') %> |
 <%= link_to 'Back', payrolls_path %>
