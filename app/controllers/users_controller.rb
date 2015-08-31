@@ -28,7 +28,7 @@ before_filter :authenticate_user! , only: [:edit, :update ]
       @user = User.find_by_email(params[:email])
 
       if @user 
-        UserRequestPassword.delay.send_request_password(@user)
+        UserRequestPassword.send_request_password(@user).deliver
         flash[:success] = "Email Send!"
            redirect_to root_path , :success => "Email Send" 
       else

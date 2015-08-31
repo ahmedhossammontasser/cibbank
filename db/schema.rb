@@ -49,14 +49,6 @@ ActiveRecord::Schema.define(:version => 20150824135025) do
     t.integer  "company_id"
   end
 
-  create_table "payroll_employee", :force => true do |t|
-    t.integer  "payroll_id"
-    t.integer  "employee_id"
-    t.string   "amount"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "payroll_employees", :force => true do |t|
     t.float    "amount",      :default => 0.0
     t.datetime "created_at",                   :null => false
