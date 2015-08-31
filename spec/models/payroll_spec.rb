@@ -10,6 +10,7 @@
 #  payrolls_value_day     :datetime
 #  payrolls_no_employees  :integer
 #  company_id             :integer
+#  payroll_amount_usd     :float
 #
 
 require 'spec_helper'

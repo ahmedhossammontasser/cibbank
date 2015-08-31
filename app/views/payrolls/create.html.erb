@@ -1,40 +1,84 @@
 
-<h1>Payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
-<p><b>Company Name :</b><%= @companyob.company_name %>  </p>
+<h1>Company Name :</b><%= @companyob.company_name %>  </h1>
 
 <% amounts = Array.new %>
 <% @totalamount = 0 %>
+<% @totalamountusd = 0 %>
+
+<ul class="nav nav-tabs nav-justified">
+  <li class="active"><a href="#">Payroll for Month <%= DateTime.now.to_date.strftime('%B-%y')%></a></li> </ul>  
+
+
+
+
+<div class="jumbotron payroll" >
+<table border="0" style="width:100%">
+<tr>
+	<td><b>Name </b></td>
+	<td><b>Salary </b></td>
+	<td><b>Currency code</b> 	</td>
+</tr>
+
  <% @employes.each_with_index do|employe , i |  %>
-<b>Name : </b>  <%=employe.employee_name   %> 
-<b>Salary : </b>
-<%= @amount = params[:payroll][:"amount#{i}"][:amount]%>
-<% amounts << @amount  %> 
-<b>Branch code : </b> 
-<%= employe.employee_branch_code %> 
-<b>Account code : </b>
-<%= employe.employee_account_no %> 
-<b>Currency code : </b>
-<%= employe.employee_currency_code %> 
-<b>Debit credit : </b>
-<%= employe.employee_debit_credit %> 
-<br>
-<% @totalamount = @totalamount + @amount.to_f %>
-
+  <tr>
+    <td>  <%=employe.employee_name   %> </td>
+    <td>
+		<%= @amount = params[:payroll][:"amount#{i}"][:amount]%>
+		<% amounts << @amount  %> 
+	</td>
+	<td>
+		<%= employe.employee_currency_code %> 
+	</td>
+  </tr>
+	<% if employe.employee_currency_code == "EGP"%>
+		<% @totalamount = @totalamount + @amount.to_f %>
+	<% else %>
+		<% @totalamountusd = @totalamountusd + @amount.to_f %>
+	<%end%>
 <% end %>
-
-<p>
-
- <b>Total amount:</b>
-  <%= @totalamount.round(2) %>  
+</table>  
+</div>
 <br>
+<br>
+
+<div class="jumbotron payroll" >
+<table border="0" style="width:100%">
+ <tr>
+<td>
+<table border="0" style="width:100%">
+ <tr>
+<td>
+ <b>Total amount EGP:</b><%= @totalamount.round(2) %> 
+</td>
+<td>
+
+ <b>Total amount USD:</b>  <%= @totalamountusd.round(2) %> 
+</td>
+</tr>
+<tr>
+
+<td>
+
  <b>Total Number of employees:</b>
   <%= @employes.count %>  
-<br>
+</td>
+<td>
 <b> payroll  value day: </b>
  <%= date = Date.new params[:payroll]["payrolls_value_day(1i)"].to_i, params[:payroll]["payrolls_value_day(2i)"].to_i, params[:payroll]["payrolls_value_day(3i)"].to_i%>
+</tr>
+</table>
+</td>
+<td>
+	
+<%= button_to 'Confirm' , payrolls_confirm_path(date:date ,totalamount:@totalamount.round(2) , totalamountusd:@totalamountusd.round(2) , amounts:amounts ) ,{:class => "btn btn-default"} %>
+</td>
+
+</tr>
+</table>
+
+</div>
+
+
 <br>
-</p>
 
-
-
- <%= button_to 'Confirm' , payrolls_confirm_path(date:date ,totalamount:@totalamount.round(2) , amounts:amounts  ) %>
+ 

@@ -7,7 +7,7 @@
 #  employee_branch_code   :string(255)
 #  employee_account_no    :string(255)
 #  employee_currency_code :string(255)
-#  employee_debit_credit  :string(255)      default("D")
+#  employee_debit_credit  :string(255)      default("C")
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  company_id             :integer

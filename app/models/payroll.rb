@@ -10,10 +10,11 @@
 #  payrolls_value_day     :datetime
 #  payrolls_no_employees  :integer
 #  company_id             :integer
+#  payroll_amount_usd     :float
 #
 
 class Payroll < ActiveRecord::Base
-  attr_accessible :payroll_amount , :payrolls_creation_date,:payrolls_value_day,:company_id , :payrolls_no_employees
+  attr_accessible :payroll_amount , :payrolls_creation_date,:payrolls_value_day,:company_id , :payrolls_no_employees, :payroll_amount_usd
   belongs_to :company
   has_many :payroll_employees ,  dependent: :destroy
   has_many :employees, through: :payroll_employees

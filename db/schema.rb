@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150824135025) do
+ActiveRecord::Schema.define(:version => 20150831142609) do
 
   create_table "companies", :force => true do |t|
     t.string   "company_name"
@@ -43,10 +43,18 @@ ActiveRecord::Schema.define(:version => 20150824135025) do
     t.string   "employee_branch_code"
     t.string   "employee_account_no"
     t.string   "employee_currency_code"
-    t.string   "employee_debit_credit",  :default => "D"
+    t.string   "employee_debit_credit",  :default => "C"
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
     t.integer  "company_id"
+  end
+
+  create_table "payroll_employee", :force => true do |t|
+    t.integer  "payroll_id"
+    t.integer  "employee_id"
+    t.string   "amount"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "payroll_employees", :force => true do |t|
@@ -68,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20150824135025) do
     t.datetime "payrolls_value_day"
     t.integer  "payrolls_no_employees"
     t.integer  "company_id"
+    t.float    "payroll_amount_usd"
   end
 
   create_table "users", :force => true do |t|

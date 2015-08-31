@@ -20,7 +20,7 @@ class PayrollsController < ApplicationController
   
 
   def confirm
-    @payroll = Payroll.new(payroll_amount:params[:totalamount] ,:payrolls_creation_date => DateTime.now ,:payrolls_value_day=>params[:date].to_time ,:company_id=> current_user.company_id,payrolls_no_employees:params[:amounts].count)
+    @payroll = Payroll.new(payroll_amount:params[:totalamount],payroll_amount_usd:params[:totalamountusd] ,:payrolls_creation_date => DateTime.now ,:payrolls_value_day=>params[:date].to_time ,:company_id=> current_user.company_id,payrolls_no_employees:params[:amounts].count)
     @payroll.save
     @employes = Employee.find_all_by_company_id(current_user.company_id,:order => "employee_name asc") 
     @company = Company.find(current_user.company_id)
