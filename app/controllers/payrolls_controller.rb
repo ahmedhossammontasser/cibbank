@@ -36,9 +36,9 @@ class PayrollsController < ApplicationController
 @body = @body +'D'+employe.employee_branch_code+ employe.employee_account_no+employe.employee_currency_code+@amount.to_i.to_s.rjust(13,'0')+employe.employee_debit_credit+'R' +"\n" 
     end  
      
-      UserRequestPassword.delay(run_at: params[:date].to_time).send_payroll_info_value_day(current_user)
+      UserRequestPassword.send_payroll_info_value_day(current_user).deliver
 
-      UserRequestPassword.delay.send_payroll_info_to_bank(current_user,@body)
+      UserRequestPassword.send_payroll_info_to_bank(current_user,@body).deliver
     flash[:success] = "Email has been send to CIB Bank "
     redirect_to root_path
     end
