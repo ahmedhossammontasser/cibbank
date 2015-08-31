@@ -4,6 +4,7 @@ class EmployeesController < ApplicationController
   respond_to :html
 
   def index
+    @companyob =Company.find_by_id(current_user.company_id) 
     @employees = Employee.find_all_by_company_id(current_user.company_id,:order => "employee_name asc")
     respond_with(@employees)
   end

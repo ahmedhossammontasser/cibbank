@@ -1,50 +1,62 @@
 <p id="notice"><%= notice %></p>
 
-
-<h1>Payroll for Month <%= DateTime.now.to_date.strftime('%m/%y')%></h1>
-
 <% if !@ary.include?(DateTime.now.to_date.strftime('%m %y')) %>
 <h2><%= link_to 'Use for next month', new_payroll_path(id: @payroll.id , editmonth: 'new',:class => "btn btn-default" ) %> </h2>
 <% end %>
 
-<p><b>Company Name :</b><%= @companyob.company_name %>  </p>
-<p>
 
-  <b>Total amount:</b>
-  <%= @payroll.payroll_amount %>  
-<br>
- <b>Total Number of employees:</b>
-  <%= @payroll.payrolls_no_employees %>  
-<br>
-   <b> payroll  value day: </b>
- <%= @payroll.payrolls_value_day.to_date.strftime('%d/%m/%y')%>
-<br>
-   <b> payroll  cration day:</b>
- <%= @payroll.payrolls_creation_date.to_date.strftime('%d/%m/%y')%>
+<h1><b>Company Name :</b><%= @companyob.company_name %>  </h1>
 
-<br >
-</p>
-
+<div class="jumbotron payroll" >
+<table border="0" style="width:100%">
+  <tr>
+    <td><b>Payroll For <%= @payroll.payrolls_creation_date.strftime('%B-%y')%></b></td>
+    <td>
+    	<table border="0" style="width:100%">
+			<tr>
+				<td><p> <b>Creation date:  </b> <%= @payroll.payrolls_creation_date.strftime('%d-%m-%y') %> </p></td>
+				<td><p> <b>Value date:  </b><%= @payroll.payrolls_value_day.strftime('%d-%m-%y') %></p></td>
+			</tr>
+			<tr>
+				<td><p> <b>Total employees:  </b><%= @payroll.payrolls_no_employees %></p></td>
+				<td><p> <b>Total amount: </b><%= @payroll.payroll_amount %></p></td>
+			</tr>
+		</table>
+	</td>
+	<td>
+		<% if !@ary.include?(DateTime.now.to_date.strftime('%m %y')) %>
+		<%= link_to "Create payroll", new_payroll_path ,  :class => "btn btn-default" %>
+		<% end %>
+	</td>
+  </tr>
+</table>  
+</div>
+<br>
+<ul class="nav nav-tabs nav-justified">
+  <li class="active"><a href="#">Employees info</a></li> </ul>  
 
 <% @payrollemploye =  PayrollEmployee.find_all_by_payroll_id(params[:id])%>
-
  <% @payrollemploye.each_with_index do|employe , i |  %>
-<b>Name : </b>  <%=Employee.find(employe.employee_id).employee_name   %> 
-<b>Salary : </b>
-  <%=PayrollEmployee.find_by_employee_id_and_payroll_id(employe.employee_id , @payroll.id).amount%> 
 
-<b>Branch code : </b> <%= Employee.find(employe.employee_id).employee_branch_code %> 
-<b>Account code : </b> <%= Employee.find(employe.employee_id).employee_account_no %> 
-<b>Currency code : </b>
-<%= Employee.find(employe.employee_id).employee_currency_code %> 
-<b>Debit credit : </b>
-<%= Employee.find(employe.employee_id).employee_debit_credit %> 
-<br>
+<div class="jumbotron payroll" >
+<table border="0" style="width:100%">
 
+  <tr>
+    <td><b>Name : </b>  <%=Employee.find(employe.employee_id).employee_name   %> </td>
+    <td><b>Salary : </b><%=PayrollEmployee.find_by_employee_id_and_payroll_id(employe.employee_id , @payroll.id).amount%> </td>
+	<td><b>Branch code : </b> <%= Employee.find(employe.employee_id).employee_branch_code %> </td>
+  </tr>
+  <tr>
+    <td><b>Account code : </b> <%= Employee.find(employe.employee_id).employee_account_no %></td>
+    <td><b>Currency code : </b><%= Employee.find(employe.employee_id).employee_currency_code %> </td>
+	<td><b>Debit credit : </b><%= Employee.find(employe.employee_id).employee_debit_credit %></td>
+  </tr>
 <% @amount = PayrollEmployee.find_by_employee_id_and_payroll_id(employe.employee_id , @payroll.id).amount * 100%> 
 
 D<%= Employee.find(employe.employee_id).employee_branch_code %><%= Employee.find(employe.employee_id).employee_account_no %><%= Employee.find(employe.employee_id).employee_currency_code %><%= @amount.to_i.to_s.rjust(13,'0') %><%= Employee.find(employe.employee_id).employee_debit_credit %>R 
 
+</table>  
+</div>
 <br>
 <% end %>
 

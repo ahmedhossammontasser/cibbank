@@ -1,32 +1,31 @@
-<h1>Listing employees</h1>
 
-<table>
-  <tr>
-    <th>Employee name</th>
-    <th>Employee branch code</th>
-    <th>Employee account no</th>
-    <th></th>
-    <th>Employee currency code</th>
-    <th>Employee debit credit</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<h1><b>Company Name :</b><%= @companyob.company_name %>  </h1>
+
+
+<ul class="nav nav-tabs nav-justified">
+  <li class="active"><a href="#">Employees info</a></li> </ul>  
+
 
 <% @employees.each do |employee| %>
+<div class="jumbotron payroll" >
+<table border="0" style="width:100%">
+
   <tr>
-    <td><%= employee.employee_name %></td>
-    <td><%= employee.employee_branch_code %></td>
-    <td><%= employee.employee_account_no %></td>
-    <td><%= employee.employee_currency_code %></td>
-    <td><%= employee.employee_debit_credit %></td>
-    <td><%= link_to 'Show', employee %></td>
-    <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-    <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><b>Name : </b>  <%=employee.employee_name   %> </td>
+    <td><b>Account code : </b> <%= employee.employee_account_no %></td>
+    <td><b>Branch code : </b> <%= employee.employee_branch_code %> </td>
   </tr>
-<% end %>
-</table>
+  <tr>
+    <td><b>Currency code : </b><%= employee.employee_currency_code %> </td>
+    <td><b>Debit credit : </b><%= employee.employee_debit_credit %></td>
 
-<br />
+    <td><b>Number of payrolls:</b><%= PayrollEmployee.count(:amount,conditions:{employee_id:employee.id} )%> </td>
+    <td><b>Sum of payrolls:</b><%= PayrollEmployee.sum(:amount,conditions:{employee_id:employee.id} )%> </td>
 
-<%= link_to 'New Employee', new_employee_path %>
+  </tr>
+
+</table>  
+</div>
+<br>
+<%end%>
+<li><%= link_to "Add new employees", new_employee_path %></li>

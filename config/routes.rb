@@ -11,6 +11,7 @@ Cibbanktask::Application.routes.draw do
    devise_for :users
 
    get "users/requestpassword"
+   get "users/signoutpath"
    post "users/sendrequestpassword" #=> "users#sendrequestpassword"
 
    post "payrolls/create"
